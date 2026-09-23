@@ -1,0 +1,21 @@
+{
+  "name": "Remit Calculator",
+  "short_name": "Remit Calc",
+  "description": "Foodpanda Remit Calculator",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fdf1f6",
+  "theme_color": "#f90081",
+  "icons": [
+    {
+      "src": "foodpanda.jpg",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "foodpanda.jpg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

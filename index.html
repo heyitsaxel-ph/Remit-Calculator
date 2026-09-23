@@ -8,9 +8,9 @@
   * { box-sizing: border-box; }
   body {
     margin: 0;
-    padding: 40px 16px;
-    background: #fafafa;
-    color: #1a1a1a;
+    padding: 48px 16px;
+    background: #f3f3f1;
+    color: #1c1c1a;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 15px;
     line-height: 1.5;
@@ -19,232 +19,213 @@
     max-width: 380px;
     margin: 0 auto;
   }
-  h1 {
-    font-size: 20px;
+  .eyebrow {
+    font-size: 12px;
     font-weight: 600;
+    color: #0f7b3d;
+    margin: 0 0 6px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 700;
     margin: 0 0 4px;
+    letter-spacing: -0.01em;
   }
   p.desc {
-    color: #666;
-    margin: 0 0 24px;
+    color: #6b6b66;
+    margin: 0 0 22px;
     font-size: 14px;
   }
+
   .card {
     background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 20px;
+    border: 1px solid #e2e1dc;
+    border-radius: 10px;
+    padding: 22px;
   }
+
   label {
     display: block;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 600;
-    color: #333;
-    margin-bottom: 4px;
+    color: #45453f;
+    margin-bottom: 6px;
   }
-  .field {
-    margin-bottom: 14px;
-  }
-  input[type="number"] {
-    width: 100%;
-    padding: 8px 10px;
-    font-size: 15px;
-    font-family: inherit;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    color: #1a1a1a;
+  .field { margin-bottom: 16px; }
+  .amount-input {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #d7d6cf;
+    border-radius: 7px;
+    padding: 0 12px;
     background: #fff;
     transition: border-color .12s ease;
   }
-  input[type="number"]:focus {
-    outline: none;
-    border-color: #2563eb;
-  }
-
-  .fee-field {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .fee-field input[type="number"] {
-    width: 64px;
-    text-align: center;
-    flex: none;
-  }
-  .stepper {
-    display: flex;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  .stepper button {
-    width: 30px;
-    height: 34px;
-    border: none;
-    background: #f4f4f4;
-    color: #333;
+  .amount-input:focus-within { border-color: #1c1c1a; }
+  .amount-input span {
+    color: #8b8b84;
+    font-weight: 600;
+    margin-right: 6px;
     font-size: 15px;
-    cursor: pointer;
-    line-height: 1;
   }
-  .stepper button:hover { background: #eaeaea; }
-  .stepper button:active { background: #e0e0e0; }
-  .fee-field span.pct {
-    color: #666;
-    font-size: 14px;
+  input[type="number"] {
+    border: none;
+    outline: none;
+    flex: 1;
+    min-width: 0;
+    padding: 11px 0;
+    font-size: 17px;
+    font-weight: 600;
+    font-family: inherit;
+    color: #1c1c1a;
+    background: transparent;
+    font-variant-numeric: tabular-nums;
   }
+  input[type="number"]::placeholder { color: #b7b6ae; font-weight: 500; }
 
   hr {
     border: none;
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px dashed #ddddd6;
     margin: 18px 0 14px;
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-  }
-  table td {
-    padding: 5px 0;
-  }
-  table td:last-child {
-    text-align: right;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .result-box {
-    margin-top: 14px;
-    padding: 14px;
-    border-radius: 6px;
-    background: #f4f7ff;
-    border: 1px solid #dce4fb;
+  .row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    transition: background-color .3s ease, border-color .3s ease;
+    padding: 5px 0;
+    font-size: 14px;
   }
-  .result-box.flash {
-    background: #e8f0fe;
-    border-color: #b9cdfb;
-  }
-  .result-box .label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #444;
-  }
-  .result-box .value {
-    font-size: 20px;
-    font-weight: 700;
+  .row .k { color: #6b6b66; }
+  .row .v {
     font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: #1c1c1a;
   }
-  .result-box .value.negative {
-    color: #b3261e;
+  .row .v.neg { color: #a13d2e; }
+
+  .result {
+    margin: 16px -22px -22px;
+    padding: 18px 22px;
+    background: #14231b;
+    border-radius: 0 0 9px 9px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    transition: background-color .3s ease;
   }
+  .result.flash { background: #1c3327; }
+  .result .k {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #9db7a8;
+  }
+  .result .v {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .result .v.neg { color: #f2b199; }
 
   .actions {
     display: flex;
     gap: 8px;
-    margin-top: 14px;
+    margin-top: 18px;
   }
   .actions button {
     flex: 1;
-    padding: 8px 10px;
-    font-size: 13px;
+    padding: 10px;
+    font-size: 13.5px;
     font-weight: 600;
     font-family: inherit;
-    border-radius: 5px;
+    border-radius: 7px;
     cursor: pointer;
+    transition: background-color .12s ease, border-color .12s ease;
   }
   #copyBtn {
-    background: #2563eb;
+    background: #0f7b3d;
     color: #fff;
-    border: 1px solid #2563eb;
+    border: 1px solid #0f7b3d;
   }
-  #copyBtn:hover { background: #1d4fd1; }
-  #copyBtn.copied { background: #1a7d3f; border-color: #1a7d3f; }
+  #copyBtn:hover { background: #0c6531; }
+  #copyBtn.copied { background: #1c1c1a; border-color: #1c1c1a; }
   #resetBtn {
     background: #fff;
-    color: #444;
-    border: 1px solid #ccc;
+    color: #45453f;
+    border: 1px solid #d7d6cf;
   }
-  #resetBtn:hover { background: #f4f4f4; }
+  #resetBtn:hover { background: #f6f6f4; }
 
   .note {
-    margin-top: 14px;
+    text-align: center;
+    margin-top: 18px;
     font-size: 12px;
-    color: #999;
+    color: #9a9a93;
   }
 </style>
 </head>
 <body>
   <div class="container">
+    <p class="eyebrow">7-Eleven remittance</p>
     <h1>Remit Calculator</h1>
-    <p class="desc">Payments minus fee minus wallet = amount to remit at 7-Eleven.</p>
+    <p class="desc">Payments minus a 2% fee minus wallet balance.</p>
 
     <div class="card">
       <div class="field">
         <label for="payments">Payments</label>
-        <input type="number" id="payments" step="0.01" min="0" placeholder="0.00">
+        <div class="amount-input">
+          <span>₱</span>
+          <input type="number" id="payments" step="0.01" min="0" placeholder="0.00">
+        </div>
       </div>
 
       <div class="field">
         <label for="wallet">Wallet</label>
-        <input type="number" id="wallet" step="0.01" min="0" placeholder="0.00">
-      </div>
-
-      <div class="field">
-        <label for="feePct">Fee</label>
-        <div class="fee-field">
-          <div class="stepper">
-            <button type="button" id="feeDown" aria-label="Decrease fee">−</button>
-            <input type="number" id="feePct" step="0.5" min="0" max="100" value="2">
-            <button type="button" id="feeUp" aria-label="Increase fee">+</button>
-          </div>
-          <span class="pct">%</span>
+        <div class="amount-input">
+          <span>₱</span>
+          <input type="number" id="wallet" step="0.01" min="0" placeholder="0.00">
         </div>
       </div>
 
       <hr>
 
-      <table>
-        <tr>
-          <td>Payments</td>
-          <td id="outPayments">₱0.00</td>
-        </tr>
-        <tr>
-          <td id="feeLabel">Fee (2%)</td>
-          <td id="outFee">−₱0.00</td>
-        </tr>
-        <tr>
-          <td>Wallet</td>
-          <td id="outWallet">−₱0.00</td>
-        </tr>
-      </table>
-
-      <div class="result-box" id="resultBox">
-        <span class="label">Remit</span>
-        <span class="value" id="outResult">₱0.00</span>
+      <div class="row">
+        <span class="k">Payments</span>
+        <span class="v" id="outPayments">₱0.00</span>
+      </div>
+      <div class="row">
+        <span class="k">Fee (2%)</span>
+        <span class="v neg" id="outFee">−₱0.00</span>
+      </div>
+      <div class="row">
+        <span class="k">Wallet</span>
+        <span class="v neg" id="outWallet">−₱0.00</span>
       </div>
 
-      <div class="actions">
-        <button type="button" id="copyBtn">Copy result</button>
-        <button type="button" id="resetBtn">Clear</button>
+      <div class="result" id="resultBox">
+        <span class="k">Remit</span>
+        <span class="v" id="outResult">₱0.00</span>
       </div>
     </div>
+
+    <div class="actions">
+      <button type="button" id="copyBtn">Copy result</button>
+      <button type="button" id="resetBtn">Clear</button>
+    </div>
+
+    <p class="note">Values are saved on this device only.</p>
   </div>
 
 <script>
+  const FEE_RATE = 0.02;
+
   const paymentsEl = document.getElementById('payments');
   const walletEl = document.getElementById('wallet');
-  const feePctEl = document.getElementById('feePct');
-  const feeUpBtn = document.getElementById('feeUp');
-  const feeDownBtn = document.getElementById('feeDown');
   const outPayments = document.getElementById('outPayments');
   const outFee = document.getElementById('outFee');
   const outWallet = document.getElementById('outWallet');
   const outResult = document.getElementById('outResult');
-  const feeLabel = document.getElementById('feeLabel');
   const resultBox = document.getElementById('resultBox');
   const copyBtn = document.getElementById('copyBtn');
   const resetBtn = document.getElementById('resetBtn');
@@ -259,19 +240,14 @@
   function calc(animate) {
     const payments = parseFloat(paymentsEl.value) || 0;
     const wallet = parseFloat(walletEl.value) || 0;
-    let feePct = parseFloat(feePctEl.value);
-    if (isNaN(feePct)) feePct = 0;
-    feePct = Math.min(Math.max(feePct, 0), 100);
-
-    const fee = payments * (feePct / 100);
+    const fee = payments * FEE_RATE;
     const remit = payments - fee - wallet;
 
     outPayments.textContent = fmt(payments);
     outFee.textContent = '−' + fmt(fee);
     outWallet.textContent = '−' + fmt(wallet);
     outResult.textContent = fmt(remit);
-    outResult.classList.toggle('negative', remit < 0);
-    feeLabel.textContent = 'Fee (' + feePct + '%)';
+    outResult.classList.toggle('neg', remit < 0);
 
     if (animate) {
       resultBox.classList.add('flash');
@@ -280,9 +256,7 @@
     }
 
     try {
-      localStorage.setItem('remit-calculator', JSON.stringify({
-        payments: paymentsEl.value, wallet: walletEl.value, fee: feePctEl.value
-      }));
+      localStorage.setItem('remit-calculator', JSON.stringify({ payments: paymentsEl.value, wallet: walletEl.value }));
     } catch (e) {}
   }
 
@@ -291,30 +265,14 @@
     if (saved) {
       paymentsEl.value = saved.payments || '';
       walletEl.value = saved.wallet || '';
-      feePctEl.value = saved.fee || '2';
     }
   } catch (e) {}
 
   paymentsEl.addEventListener('input', () => calc(true));
   walletEl.addEventListener('input', () => calc(true));
-  feePctEl.addEventListener('input', () => calc(true));
-
-  feeUpBtn.addEventListener('click', () => {
-    feePctEl.value = (Math.min((parseFloat(feePctEl.value) || 0) + 0.5, 100)).toFixed(1).replace(/\.0$/, '');
-    calc(true);
-  });
-  feeDownBtn.addEventListener('click', () => {
-    feePctEl.value = (Math.max((parseFloat(feePctEl.value) || 0) - 0.5, 0)).toFixed(1).replace(/\.0$/, '');
-    calc(true);
-  });
 
   copyBtn.addEventListener('click', async () => {
-    const text = outResult.textContent;
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch (e) {
-      // clipboard unavailable; fall back silently
-    }
+    try { await navigator.clipboard.writeText(outResult.textContent); } catch (e) {}
     const original = copyBtn.textContent;
     copyBtn.textContent = 'Copied';
     copyBtn.classList.add('copied');
@@ -327,7 +285,6 @@
   resetBtn.addEventListener('click', () => {
     paymentsEl.value = '';
     walletEl.value = '';
-    feePctEl.value = '2';
     try { localStorage.removeItem('remit-calculator'); } catch (e) {}
     calc(true);
     paymentsEl.focus();

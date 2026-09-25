@@ -130,6 +130,11 @@
     padding: 5px 0;
     font-size: 14px;
   }
+  .row.gross-row {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #f2d3e2;
+  }
   .row .k {
     font-weight: 600;
     color: #8a6272;
@@ -141,6 +146,7 @@
     color: #24141d;
   }
   .row .v.neg { color: #a13d2e; }
+  .row .v.pos { color: #167a3a; }
 
   .result {
     margin: 16px -22px -22px;
@@ -241,6 +247,13 @@
         <span class="k">Fee (2%)</span>
         <span class="v neg" id="outFee">−₱0.00</span>
       </div>
+      
+      <!-- New Gross Pay Row -->
+      <div class="row gross-row">
+        <span class="k">Gross Pay</span>
+        <span class="v pos" id="outGross">₱0.00</span>
+      </div>
+
       <div class="row">
         <span class="k">Wallet</span>
         <span class="v neg" id="outWallet">−₱0.00</span>
@@ -267,6 +280,7 @@
   const walletEl = document.getElementById('wallet');
   const outPayments = document.getElementById('outPayments');
   const outFee = document.getElementById('outFee');
+  const outGross = document.getElementById('outGross'); // Added reference
   const outWallet = document.getElementById('outWallet');
   const outResult = document.getElementById('outResult');
   const resultBox = document.getElementById('resultBox');
@@ -283,11 +297,14 @@
   function calc(animate) {
     const payments = parseFloat(paymentsEl.value) || 0;
     const wallet = parseFloat(walletEl.value) || 0;
+    
     const fee = payments * FEE_RATE;
-    const remit = payments - fee - wallet;
+    const grossPay = payments - fee; // Added calculation
+    const remit = grossPay - wallet;
 
     outPayments.textContent = fmt(payments);
     outFee.textContent = '−' + fmt(fee);
+    outGross.textContent = fmt(grossPay); // Injected to DOM
     outWallet.textContent = '−' + fmt(wallet);
     outResult.textContent = fmt(remit);
     outResult.classList.toggle('neg', remit < 0);

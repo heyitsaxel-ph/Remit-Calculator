@@ -444,12 +444,14 @@
   calc(false);
 
 const PKG = 'com.philseven.loyalty2026';
+const ACTIVITY = 'com.philseven.loyalty2026.MainActivity';
 const PLAY_URL = 'https://play.google.com/store/apps/details?id=' + PKG;
 const INTENT_URL =
   'intent://open#Intent;' +
   'action=android.intent.action.MAIN;' +
   'category=android.intent.category.LAUNCHER;' +
   'package=' + PKG + ';' +
+  'component=' + PKG + '/' + ACTIVITY + ';' +
   'S.browser_fallback_url=' + encodeURIComponent(PLAY_URL) + ';end';
 
 cliqqBtn.addEventListener('click', (e) => {

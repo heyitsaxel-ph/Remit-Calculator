@@ -202,6 +202,76 @@
   }
   #resetBtn:hover { background: #fdf1f6; }
 
+  /* ---------- Cliqq button ---------- */
+  .cliqq-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin: 0 0 18px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #3dafe3, #4874eb);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(72, 116, 235, 0.28);
+    overflow: hidden;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .cliqq-btn::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -60%;
+    width: 40%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-20deg);
+    transition: left .5s ease;
+  }
+  .cliqq-btn:hover::after { left: 120%; }
+  .cliqq-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(72, 116, 235, 0.38);
+    filter: brightness(1.05);
+  }
+  .cliqq-btn:active {
+    transform: translateY(0) scale(.98);
+    box-shadow: 0 3px 8px rgba(72, 116, 235, 0.3);
+  }
+  .cliqq-btn:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px #4874eb;
+  }
+  .cliqq-icon {
+    flex: none;
+    width: 38px; height: 38px;
+    display: grid; place-items: center;
+    background: rgba(255,255,255,.2);
+    border-radius: 10px;
+  }
+  .cliqq-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    text-align: left;
+  }
+  .cliqq-text strong { font-size: 15px; font-weight: 700; }
+  .cliqq-text small { font-size: 12px; opacity: .85; }
+  .cliqq-arrow { flex: none; transition: transform .2s ease; }
+  .cliqq-btn:hover .cliqq-arrow { transform: translateX(4px); }
+
+  .cliqq-btn.loading { pointer-events: none; filter: saturate(.7); }
+  .cliqq-btn.loading .cliqq-arrow { animation: cliqq-spin .8s linear infinite; }
+  @keyframes cliqq-spin { to { transform: rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cliqq-btn, .cliqq-btn::after, .cliqq-arrow { transition: none; animation: none; }
+  }
+
   .note {
     text-align: center;
     margin-top: 18px;
@@ -221,6 +291,24 @@
 
     <h1>Remit Calculator</h1>
     <p class="desc">Go to nearest 7-Eleven to remit</p>
+
+    <a id="cliqqBtn" class="cliqq-btn"
+       href="https://play.google.com/store/apps/details?id=com.cliqq.ph"
+       target="_blank" rel="noopener">
+      <span class="cliqq-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="2" width="12" height="20" rx="3"/>
+          <line x1="11" y1="18" x2="13" y2="18"/>
+        </svg>
+      </span>
+      <span class="cliqq-text">
+        <strong id="cliqqLabel">Open Cliqq App</strong>
+        <small>Remit your payment fast</small>
+      </span>
+      <svg class="cliqq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M13 6l6 6-6 6"/>
+      </svg>
+    </a>
 
     <div class="card">
       <div class="field">
@@ -249,8 +337,7 @@
         <span class="k">Fee (2%)</span>
         <span class="v neg" id="outFee">−₱0.00</span>
       </div>
-      
-      <!-- New Gross Pay Row -->
+
       <div class="row gross-row">
         <span class="k">Gross Pay</span>
         <span class="v pos" id="outGross">₱0.00</span>
@@ -272,9 +359,9 @@
       <button type="button" id="resetBtn">Clear</button>
     </div>
 
-<p class="note">
-  <a href="https://facebook.com/nilmaraxel" style="text-decoration: none; color: inherit;">UrDevNilmar</a>
-</p>
+    <p class="note">
+      <a href="https://facebook.com/nilmaraxel" style="text-decoration: none; color: inherit;">UrDevNilmar</a>
+    </p>
   </div>
 
 <script>
@@ -284,7 +371,7 @@
   const walletEl = document.getElementById('wallet');
   const outPayments = document.getElementById('outPayments');
   const outFee = document.getElementById('outFee');
-  const outGross = document.getElementById('outGross'); // Added reference
+  const outGross = document.getElementById('outGross');
   const outWallet = document.getElementById('outWallet');
   const outResult = document.getElementById('outResult');
   const resultBox = document.getElementById('resultBox');
@@ -301,14 +388,14 @@
   function calc(animate) {
     const payments = parseFloat(paymentsEl.value) || 0;
     const wallet = parseFloat(walletEl.value) || 0;
-    
+
     const fee = payments * FEE_RATE;
-    const grossPay = payments - fee; // Added calculation
+    const grossPay = payments - fee;
     const remit = grossPay - wallet;
 
     outPayments.textContent = fmt(payments);
     outFee.textContent = '−' + fmt(fee);
-    outGross.textContent = fmt(grossPay); // Injected to DOM
+    outGross.textContent = fmt(grossPay);
     outWallet.textContent = '−' + fmt(wallet);
     outResult.textContent = fmt(remit);
     outResult.classList.toggle('neg', remit < 0);
@@ -355,6 +442,27 @@
   });
 
   calc(false);
+
+  const cliqqBtn = document.getElementById('cliqqBtn');
+  const cliqqLabel = document.getElementById('cliqqLabel');
+  const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.cliqq.ph';
+  const INTENT_URL =
+    'intent://#Intent;package=com.cliqq.ph;S.browser_fallback_url=' +
+    encodeURIComponent(PLAY_URL) + ';end';
+
+  cliqqBtn.addEventListener('click', (e) => {
+    if (/Android/i.test(navigator.userAgent)) {
+      e.preventDefault();
+      window.location.href = INTENT_URL;
+    }
+    cliqqBtn.classList.add('loading');
+    cliqqLabel.textContent = 'Opening Cliqq…';
+    if (navigator.vibrate) navigator.vibrate(15);
+    setTimeout(() => {
+      cliqqBtn.classList.remove('loading');
+      cliqqLabel.textContent = 'Open Cliqq App';
+    }, 2000);
+  });
 </script>
 </body>
 </html>

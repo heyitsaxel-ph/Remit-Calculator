@@ -443,8 +443,7 @@
 
   calc(false);
 
-  // ---------- Cliqq button ----------
- const PKG = 'com.philseven.loyalty2026';
+const PKG = 'com.philseven.loyalty2026';
 const ACTIVITY = 'com.philseven.loyalty2026.MainActivity';
 const PLAY_URL = 'https://play.google.com/store/apps/details?id=' + PKG;
 const INTENT_URL =
@@ -454,13 +453,19 @@ const INTENT_URL =
   'package=' + PKG + ';' +
   'component=' + PKG + '/' + ACTIVITY + ';' +
   'S.browser_fallback_url=' + encodeURIComponent(PLAY_URL) + ';end';
-cliqqBtn.addEventListener('click', async (e) => {
-  try { await navigator.clipboard.writeText('Dragon Loan'); } catch (err) {}
 
-  if (/Android/i.test(navigator.userAgent)) {
+cliqqBtn.addEventListener('click', (e) => {
+  const isAndroid = /Android/i.test(navigator.userAgent);
+
+  // must run first, before anything async
+  if (isAndroid) {
     e.preventDefault();
     window.location.href = INTENT_URL;
   }
+
+  // optional: copy the biller name (runs without blocking the redirect)
+  if (navigator.clipboard) navigator.clipboard.writeText('Dragon Loan').catch(() => {});
+
   cliqqBtn.classList.add('loading');
   cliqqLabel.textContent = 'Opening Cliqq…';
   if (navigator.vibrate) navigator.vibrate(15);

@@ -443,14 +443,13 @@
 
   calc(false);
 
-const cliqqBtn = document.getElementById('cliqqBtn');
-const cliqqLabel = document.getElementById('cliqqLabel');
-const PLAY_URL = 'https://play.google.com/store/apps/details?id=com.cliqq.ph';
+const PKG = 'com.philseven.loyalty2026';
+const PLAY_URL = 'https://play.google.com/store/apps/details?id=' + PKG;
 const INTENT_URL =
   'intent://open#Intent;' +
   'action=android.intent.action.MAIN;' +
   'category=android.intent.category.LAUNCHER;' +
-  'package=com.cliqq.ph;' +
+  'package=' + PKG + ';' +
   'S.browser_fallback_url=' + encodeURIComponent(PLAY_URL) + ';end';
 
 cliqqBtn.addEventListener('click', (e) => {
